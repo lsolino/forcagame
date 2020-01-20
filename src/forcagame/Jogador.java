@@ -33,14 +33,12 @@ public class Jogador extends ObjetoDominioImpl {
         this.pontuacao = pontuacao;
     }
     
-    public Jogador criar(Long id, String nome) {
-        return null;
-        //TODO
+    public static Jogador criar(Long id, String nome) {
+       return new Jogador(id, nome);
     }
     
-    public Jogador reconstituir(Long id, String nome, int pontuacao) {
-        return null;
-        //TODO
+    public static Jogador reconstituir(Long id, String nome, int pontuacao) {
+        return new Jogador(id, nome, pontuacao);
     }
     
 }

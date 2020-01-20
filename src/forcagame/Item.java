@@ -1,8 +1,11 @@
 package forcagame;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Item extends ObjetoDominioImpl {
     
-    private boolean[] posicoesDescobertas;
+    private List<Boolean> posicoesDescobertas;
     private String palavraArriscada = null;
     private Palavra palavra;
     
@@ -19,33 +22,51 @@ public class Item extends ObjetoDominioImpl {
     }
     
     public Palavra getPalavra(){
-        return null;
-        //TODO
+        return this.palavra;
     }
     
-    public Letra[] getLetrasDescobertas(){
-        return null;
-        //TODO
+    public List<Letra> getLetrasDescobertas(){
+        
+        List<Letra> uncover = new ArrayList<>();
+        int i;
+
+        for (i = 0; i < posicoesDescobertas.size(); i++) {
+            if (posicoesDescobertas.get(i)) {
+                uncover.add(palavra.getLetra(i));
+            }
+        }
+
+        return uncover;
     }
     
-    public Letra[] getLetrasEncobertas(){
-        return null;
-        //TODO
+    public List<Letra> getLetrasEncobertas(){
+        List<Letra> cover = new ArrayList<>();
+        int i;
+
+        for (i = 0; i < posicoesDescobertas.size(); i++) {
+            if (!posicoesDescobertas.get(i)) {
+                cover.add(palavra.getLetra(i));
+            }
+        }
+
+        return cover;
     }
     
     public int qtdeLetrasEncobertas(){
-        return 0;
-        //TODO
+        return getLetrasEncobertas().size();
     }
     
     public int calcularPontosLetrasEncobertas(int valorPorLetraEncoberta) {
-        return 0;
-        //TODO
+        int points = qtdeLetrasEncobertas() * valorPorLetraEncoberta;
+        return points;
     }
     
     public boolean descobriu() {
-        return false;
-        //TODO
+        if (acertou() || qtdeLetrasEncobertas() == 0) {
+            return true;
+        } else {
+            return false;
+        } 
     }
     
     public void exibir(Object contexto) {
@@ -58,33 +79,36 @@ public class Item extends ObjetoDominioImpl {
     }
     
     public void arriscar(String palavra) {
-        //TODO
+        this.palavraArriscada = palavra;
     }
     
     public String getPalavraArriscada() {
-        return null;
-        //TODO
+        return this.palavraArriscada;
     }
     
     public boolean arriscou() {
-        return false;
-        //TODO
+        if (palavraArriscada != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public boolean acertou() {
-        return false;
-        //TODO
+        if ( arriscou() ) {
+            return palavra.comparar(palavraArriscada);
+        } else {
+            return false;
+        }
     }
     
     //Checar modificador de acesso
-    public Item criar(Long id, Palavra palavra) {
-        return null;
-        //TODO
+    public static Item criar(Long id, Palavra palavra) {
+        return new Item(id, palavra);
     }
     
-    public Item reconstituir(Long id, Palavra palavra, int[] posicoesDescobertas, String palavraArriscada) {
-        return null;
-        //TODO
+    public static Item reconstituir(Long id, Palavra palavra, int[] posicoesDescobertas, String palavraArriscada) {
+        return new Item(id, palavra, posicoesDescobertas, palavraArriscada);
     }
     
 }

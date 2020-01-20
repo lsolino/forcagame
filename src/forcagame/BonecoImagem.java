@@ -3,11 +3,14 @@ package forcagame;
 //aplicar Singleton
 public class BonecoImagem implements Boneco{
     
-    private static BonecoImagem soleInstance;
+    private static BonecoImagem soleInstance = null;
     
     public BonecoImagem getSoleInstance(){
-        return null;
-        //TODO
+        if (soleInstance == null) {
+            soleInstance = new BonecoImagem();
+        }
+
+        return soleInstance;
     }
     
     private BonecoImagem(){
