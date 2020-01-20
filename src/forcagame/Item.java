@@ -9,15 +9,15 @@ public class Item extends ObjetoDominioImpl {
     private String palavraArriscada = null;
     private Palavra palavra;
     
-    private Item(Long id, Palavra palavra) {
+    private Item(int id, Palavra palavra) {
         super(id);
         this.palavra = palavra;
     }
     
-    private Item(Long id, Palavra palavra, int[] posicoesDescobertas, String palavraArriscada) {
+    private Item(int id, Palavra palavra, List<Integer> posicoesDescobertas, String palavraArriscada) {
         super(id);
         this.palavra = palavra;
-        // int para boolean? this.posicoesDescobertas = posicoesDescobertas;
+        initializePosicoesDescobertas(palavra, posicoesDescobertas);
         this.palavraArriscada = palavraArriscada;
     }
     
@@ -70,12 +70,21 @@ public class Item extends ObjetoDominioImpl {
     }
     
     public void exibir(Object contexto) {
-        //TODO
+        palavra.exibir(contexto, posicoesDescobertas);
     }
     
     public boolean tentar(char codigo) {
-        return false;
-        //TODO
+        List<Integer> positions = new ArrayList<>();
+        positions = palavra.tentar(codigo);
+
+        if (positions.size() == 0)
+            return false;
+        
+        for (Integer position: positions) {
+            posicoesDescobertas.set(position, true);
+        }
+
+        return true;
     }
     
     public void arriscar(String palavra) {
@@ -103,12 +112,27 @@ public class Item extends ObjetoDominioImpl {
     }
     
     //Checar modificador de acesso
-    public static Item criar(Long id, Palavra palavra) {
+    public static Item criar(int id, Palavra palavra) {
         return new Item(id, palavra);
     }
     
-    public static Item reconstituir(Long id, Palavra palavra, int[] posicoesDescobertas, String palavraArriscada) {
+    public static Item reconstituir(int id, Palavra palavra, List<Integer> posicoesDescobertas, String palavraArriscada) {
         return new Item(id, palavra, posicoesDescobertas, palavraArriscada);
+    }
+
+    private void initializePosicoesDescobertas(Palavra palavra, List<Integer> posicoesDescobertas) {
+        this.posicoesDescobertas = new ArrayList<>(palavra.getTamanho());
+        int i = 0;
+
+        for (i = 0; i < palavra.getTamanho(); i++) {
+            this.posicoesDescobertas.add(false);
+        }
+
+        if (posicoesDescobertas != null) {
+            for (Integer aux: posicoesDescobertas) {
+                this.posicoesDescobertas.set(aux, true);
+            }
+        }
     }
     
 }

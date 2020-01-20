@@ -5,12 +5,12 @@ public class Jogador extends ObjetoDominioImpl {
     private String nome;
     private int pontuacao = 0;
     
-    private Jogador(Long id, String nome) {
+    private Jogador(int id, String nome) {
         super(id);
         this.nome = nome;
     }
     
-    private Jogador(Long id, String nome, int pontuacao) {
+    private Jogador(int id, String nome, int pontuacao) {
         super(id);
         this.nome = nome;
         this.pontuacao = pontuacao;
@@ -33,11 +33,11 @@ public class Jogador extends ObjetoDominioImpl {
         this.pontuacao = pontuacao;
     }
     
-    public static Jogador criar(Long id, String nome) {
+    public static Jogador criar(int id, String nome) {
        return new Jogador(id, nome);
     }
     
-    public static Jogador reconstituir(Long id, String nome, int pontuacao) {
+    public static Jogador reconstituir(int id, String nome, int pontuacao) {
         return new Jogador(id, nome, pontuacao);
     }
     

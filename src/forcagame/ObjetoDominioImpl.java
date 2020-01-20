@@ -2,13 +2,13 @@ package forcagame;
 
 public abstract class ObjetoDominioImpl {
     
-    private Long id;
+    private int id;
     
-    public ObjetoDominioImpl(Long id){
+    public ObjetoDominioImpl(int id){
         this.id = id;
     }
     
-    public Long getId(){
+    public int getId(){
         return id;
     }
     

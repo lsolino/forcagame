@@ -1,11 +1,13 @@
 package forcagame;
 
+import java.util.List;
+
 public class Palavra extends ObjetoDominioImpl {
 
     private String palavra;
     private Tema tema;
     
-    private Palavra(Long id, String palavra, Tema tema) {
+    private Palavra(int id, String palavra, Tema tema) {
         super(id);
         this.palavra = palavra;
         this.tema = tema;
@@ -25,11 +27,11 @@ public class Palavra extends ObjetoDominioImpl {
         //TODO
     }
     
-    public void exibir(Object contexto, boolean[] posicoes) {
+    public void exibir(Object contexto, List<Boolean> posicoes) {
         //TODO
     }
     
-    public int[] tentar(char codigo) {
+    public List<Integer> tentar(char codigo) {
         return null;
         //TODO
     }

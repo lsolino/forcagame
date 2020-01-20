@@ -4,7 +4,7 @@ public class Tema extends ObjetoDominioImpl {
     
     private String nome;
     
-    private Tema(Long id, String nome) {
+    private Tema(int id, String nome) {
         super(id);
         this.nome = nome;
     }
@@ -17,12 +17,12 @@ public class Tema extends ObjetoDominioImpl {
         return nome;
     }
     
-    public Tema criar(Long id, String nome) {
+    public Tema criar(int id, String nome) {
         return null;
         //TODO
     }
     
-    public Tema reconstituir(Long id, String nome) {
+    public Tema reconstituir(int id, String nome) {
         return null;
         //TODO
     }
