@@ -18,7 +18,7 @@ public class Rodada extends ObjetoDominioImpl {
     private List<Letra> letrasErradas;
     private List<Letra> letrasCertas;
     private Boneco boneco;
-    private BonecoFactory bonecoFactory;
+    private static BonecoFactory bonecoFactory;
     
     private Rodada(int id, List<Palavra> palavras, Jogador jogador) {
         super(id);
@@ -224,19 +224,19 @@ public class Rodada extends ObjetoDominioImpl {
         pontosPorLetraEncoberta = pontos;
     }
     
-    public void setBonecoFactory(BonecoFactory bonecoFactory){
+    public static void setBonecoFactory(BonecoFactory bonecoFactory){
         bonecoFactory = bonecoFactory;
     }
     
-    public BonecoFactory getBonecoFactory(){
+    public static BonecoFactory getBonecoFactory(){
         return bonecoFactory;
     }
     
-    public Rodada criar(int id, List<Palavra> palavras, Jogador jogador) {
+    public static Rodada criar(int id, List<Palavra> palavras, Jogador jogador) {
         return new Rodada(id, palavras, jogador);
     }
     
-    public Rodada reconstituir(int id, List<Item> itens, List<Letra> erradas, Jogador jogador) {
+    public static Rodada reconstituir(int id, List<Item> itens, List<Letra> erradas, Jogador jogador) {
         return new Rodada(id, itens, erradas, jogador);
     }
     

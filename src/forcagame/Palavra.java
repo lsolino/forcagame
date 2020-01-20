@@ -1,73 +1,103 @@
 package forcagame;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Palavra extends ObjetoDominioImpl {
 
-    private String palavra;
+    private List<Letra> palavra;
     private Tema tema;
+    private static LetraFactory letraFactory;
     
     private Palavra(int id, String palavra, Tema tema) {
         super(id);
-        this.palavra = palavra;
+        int i;
+        LetraFactory factory = getLetraFactory();
+        
+        if (factory == null) {
+            throw new RuntimeException("A fábrica de Letra ainda não foi inicializada.");
+        }
+
+        for (i = 0; i < palavra.length(); i++) {
+            this.palavra.add(factory.getLetra(palavra.charAt(i)));
+        }
         this.tema = tema;
     }
     
-    public Letra[] getLetras() {
-        return null;
-        //TODO
+    public List<Letra> getLetras() {
+        return Collections.unmodifiableList(this.palavra);
     }
     
     public Letra getLetra(int posicao) {
-        return null;
-        //TODO
+        return this.palavra.get(posicao);
     }
     
     public void exibir(Object contexto) {
-        //TODO
+        for (Letra letra: palavra) {
+            letra.exibir(null);
+        }
     }
     
     public void exibir(Object contexto, List<Boolean> posicoes) {
-        //TODO
+        if (posicoes.size() != palavra.size()) {
+            throw new RuntimeException("Posicoes não tem o mesmo tamanho da palavra!");
+        }
+
+        LetraFactory factory = getLetraFactory();
+        Letra letraEncoberta = factory.getLetraEncoberta();
+
+        for (int i = 0; i < palavra.size(); i++) {
+            if (posicoes.get(i)) {
+                palavra.get(i).exibir(null);
+            } else {
+                letraEncoberta.exibir(null);
+            }
+        }
     }
     
     public List<Integer> tentar(char codigo) {
-        return null;
-        //TODO
+        List<Integer> posicoesEncontradas = new ArrayList<>();
+
+        for (int i = 0; i < palavra.size(); i++) {
+            if (palavra.get(i).getCodigo() == codigo)
+                posicoesEncontradas.add(i);
+        }
+        return posicoesEncontradas;
     }
     
     public Tema getTema() {
-        return null;
-        //TODO
+        return this.tema;
     }
     
     public boolean comparar(String palavra) {
-        return false;
-        //TODO
+        int i;
+        for (i = 0; i < this.palavra.size(); i++) {
+            if (this.palavra.get(i).getCodigo() != palavra.charAt(i)) {
+                return false;
+            }
+        }
+        return true;
     }
     
     public int getTamanho(){
-        return 0;
-        //TODO
+        return this.palavra.size();
     }
     
-    public void setLetraFactory(LetraFactory factory){
-        //TODO
+    public static void setLetraFactory(LetraFactory factory){
+        letraFactory = factory;
     }
     
-    public LetraFactory getLetraFactory(){
-        return null;
-        //TODO
+    public static LetraFactory getLetraFactory(){
+        return letraFactory;
     }
     
-    public Palavra criar(Long id, String palavra, Tema tema) {
-        return null;
-        //TODO
+    public static Palavra criar(int id, String palavra, Tema tema) {
+        return new Palavra(id, palavra, tema);
     }
     
-    public Palavra reconstituir(Long id, String palavra, Tema tema) {
-        return null;
-        //TODO
+    public static Palavra reconstituir(int id, String palavra, Tema tema) {
+        return new Palavra(id, palavra, tema);
     }
     
     @Override

@@ -7,6 +7,6 @@ public class LetraTexto extends Letra {
     }
     
     public void exibir(Object contexto) {
-        
+        System.out.print(this.getCodigo());
     }
 }

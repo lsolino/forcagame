@@ -17,14 +17,12 @@ public class Tema extends ObjetoDominioImpl {
         return nome;
     }
     
-    public Tema criar(int id, String nome) {
-        return null;
-        //TODO
+    public static Tema criar(int id, String nome) {
+        return new Tema(id, nome);
     }
     
-    public Tema reconstituir(int id, String nome) {
-        return null;
-        //TODO
+    public static Tema reconstituir(int id, String nome) {
+        return new Tema(id, nome);
     }
     
 }
