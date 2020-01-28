@@ -18,7 +18,7 @@ public class Rodada extends ObjetoDominioImpl {
     private List<Letra> letrasErradas;
     private List<Letra> letrasCertas;
     private Boneco boneco;
-    private static BonecoFactory bonecoFactory;
+    private static BonecoFactory bonecoFactory = null;
     
     private Rodada(int id, List<Palavra> palavras, Jogador jogador) {
         super(id);
@@ -109,15 +109,17 @@ public class Rodada extends ObjetoDominioImpl {
     }
     
     public void exibirItens(Object contexto) {
-        //TODO
+        for (Item item: itens)
+            item.exibir(contexto);
     }
     
     public void exibirBoneco(Object contexto){
-        //TODO
+        boneco.exibir(contexto, getQtdeErros());
     }
     
     public void exibirPalavras(Object contexto) {
-        //TODO
+        for (Palavra palavra: getPalavras())
+            palavra.exibir(contexto);
     }
     
     public List<Letra> getTentativas(){

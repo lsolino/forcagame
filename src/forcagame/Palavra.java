@@ -19,6 +19,8 @@ public class Palavra extends ObjetoDominioImpl {
             throw new RuntimeException("A fábrica de Letra ainda não foi inicializada.");
         }
         
+        this.palavras = new ArrayList<>();
+        
         for (i = 0; i < palavra.length(); i++) {
             this.palavras.add(factory.getLetra(palavra.charAt(i)));
         }
@@ -103,9 +105,8 @@ public class Palavra extends ObjetoDominioImpl {
     }
     
     @Override
-    public String toString(){
-        return null;
-        
+    public String toString() {
+        return "Palavra [palavra=" + palavras + ", tema=" + tema + "]";
     }
     
 }

@@ -12,9 +12,7 @@ public abstract class Letra {
         return codigo;
     }
     
-    public void exibir(Object contexto) {
-        //TODO
-    }
+    public abstract void exibir(Object contexto);
     
     public boolean equals(Object o) {
         if (!(o instanceof Letra))
@@ -29,7 +27,6 @@ public abstract class Letra {
     }
     
     public final String toString() {
-        return null;
-        //TODO
+        return "Letra - " + codigo;
     }
 }
