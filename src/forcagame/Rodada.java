@@ -85,7 +85,26 @@ public class Rodada extends ObjetoDominioImpl {
     }
     
     public void tentar(char codigo) {
-        //TODO
+        if (encerrou())
+            return;
+
+        Map<Item, Boolean> acertou = new HashMap<>();
+        LetraFactory factory = Palavra.getLetraFactory();
+
+        for (Item item: itens) {
+            if (item.tentar(codigo)) {
+                letrasCertas.add(factory.getLetra(codigo));
+                acertou.put(item, true);
+            } else {
+                acertou.put(item, false);
+            }
+        }
+
+        if (!acertou.containsValue(true)) {
+            letrasErradas.add(factory.getLetra(codigo));
+        }
+           
+        //TODO Pontos do Jogador
     }
     
     public void arriscar(List<String> palavras) {
