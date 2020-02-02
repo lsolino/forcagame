@@ -245,8 +245,8 @@ public class Rodada extends ObjetoDominioImpl {
         pontosPorLetraEncoberta = pontos;
     }
     
-    public static void setBonecoFactory(BonecoFactory bonecoFactory){
-        bonecoFactory = bonecoFactory;
+    public static void setBonecoFactory(BonecoFactory factory){
+        bonecoFactory = factory;
     }
     
     public static BonecoFactory getBonecoFactory(){
