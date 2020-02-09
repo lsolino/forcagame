@@ -44,12 +44,17 @@ public class ForcaGame {
         RodadaFactory rodadaFactory = aplicacao.getRodadaFactory();
         TemaFactory temaFactory = aplicacao.getTemaFactory();
 
-        Tema tema = temaFactory.getTema("Times de Futebol");
-
-        PalavraFactory palavraFactory = aplicacao.getPalavraFactory();
-        palavraFactory.getPalavra("flamengo", tema);
-        palavraFactory.getPalavra("vasco", tema);
-        palavraFactory.getPalavra("fluminense", tema);
+        Tema temaFutebol = temaFactory.getTema("Times de Futebol");
+        PalavraFactory palavraFutebolFactory = aplicacao.getPalavraFactory();
+        palavraFutebolFactory.getPalavra("flamengo", temaFutebol);
+        palavraFutebolFactory.getPalavra("vasco", temaFutebol);
+        palavraFutebolFactory.getPalavra("fluminense", temaFutebol);
+        
+        Tema temaNomes = temaFactory.getTema("Nomes Feminino");
+        PalavraFactory palavraNomeFactory = aplicacao.getPalavraFactory();
+        palavraNomeFactory.getPalavra("brenda", temaNomes);
+        palavraNomeFactory.getPalavra("mariana", temaNomes);
+        palavraNomeFactory.getPalavra("yasmin", temaNomes);
 
         Jogador jogador = jogadorFactory.getJogador("Luan Soliño");
         Rodada rodada = rodadaFactory.getRodada(jogador);

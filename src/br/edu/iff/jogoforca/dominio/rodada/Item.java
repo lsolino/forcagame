@@ -8,6 +8,10 @@ import br.edu.iff.bancodepalavras.dominio.palavra.Palavra;
 import br.edu.iff.dominio.ObjetoDominioImpl;
 
 public class Item extends ObjetoDominioImpl {
+    
+  private List<Boolean> posicoesDescobertas;
+  private String palavraArriscada = null;
+  private Palavra palavra;
 
   static Item criar(int id, Palavra palavra) {
     return new Item(id, palavra);
@@ -16,10 +20,6 @@ public class Item extends ObjetoDominioImpl {
   public static Item recontituir(int id, Palavra palavra, List<Integer> posicoesDescobertas, String palavraArriscada) {
     return new Item(id, palavra, posicoesDescobertas, palavraArriscada);
   }
-
-  private List<Boolean> posicoesDescobertas;
-  private String palavraArriscada = null;
-  private Palavra palavra;
 
   private Item(int id, Palavra palavra) {
     super(Long.valueOf(id));

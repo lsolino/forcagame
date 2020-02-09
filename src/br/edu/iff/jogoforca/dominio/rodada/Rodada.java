@@ -171,7 +171,7 @@ public class Rodada extends ObjetoDominioImpl {
     int pontos = getPontosQuandoDescobreTodasAsPalavras();
 
     for (Item item: itens) {
-      pontos += item.calcularPontosLetrasEncobertas(getPontosPorLetraEncoberta());
+      pontos = pontos + item.calcularPontosLetrasEncobertas(getPontosPorLetraEncoberta());
     }
 
     return pontos;
@@ -214,19 +214,19 @@ public class Rodada extends ObjetoDominioImpl {
       return;
     }
       
-    Map<Item, Boolean> acertou = new HashMap<>();
+    Map<Item, Boolean> itensAcertados = new HashMap<>();
     LetraFactory factory = Palavra.getLetraFactory();
 
     for (Item item: itens) {
       if (item.tentar(codigo)) {
         letrasCertas.add(factory.getLetra(codigo));
-        acertou.put(item, true);
+        itensAcertados.put(item, true);
       } else {
-          acertou.put(item, false);
+          itensAcertados.put(item, false);
       }
     }
 
-    if (!acertou.containsValue(true)) {
+    if (!itensAcertados.containsValue(true)) {
       erradas.add(factory.getLetra(codigo));
     }
 
@@ -241,7 +241,13 @@ public class Rodada extends ObjetoDominioImpl {
       return;
     }
     
-    int aux = palavras.size() < itens.size()? palavras.size(): itens.size();
+    int aux = 0;
+    
+    if (palavras.size() < itens.size()) {
+        aux = palavras.size();
+    } else {
+        aux = itens.size();
+    }
 
     for (int i = 0; i < aux; i++) {
       itens.get(i).arriscar(palavras.get(i));
