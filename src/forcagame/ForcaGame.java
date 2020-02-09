@@ -9,11 +9,14 @@ import br.edu.iff.bancodepalavras.dominio.letra.Letra;
 import br.edu.iff.bancodepalavras.dominio.palavra.PalavraFactory;
 import br.edu.iff.bancodepalavras.dominio.tema.Tema;
 import br.edu.iff.bancodepalavras.dominio.tema.TemaFactory;
+import br.edu.iff.bancodepalavras.dominio.tema.emmemoria.MemoriaTemaRepository;
 import br.edu.iff.jogoforca.Aplicacao;
 import br.edu.iff.jogoforca.dominio.jogador.Jogador;
 import br.edu.iff.jogoforca.dominio.jogador.JogadorFactory;
 import br.edu.iff.jogoforca.dominio.rodada.Rodada;
 import br.edu.iff.jogoforca.dominio.rodada.RodadaFactory;
+import br.edu.iff.jogoforca.dominio.rodada.RodadaRepository;
+import br.edu.iff.jogoforca.dominio.rodada.emmemoria.MemoriaRodadaRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -37,6 +40,7 @@ public class ForcaGame {
     }
 
     public static void main(String[] args) throws Exception {
+        boolean opcao = true;       
         Scanner scanner = new Scanner(System.in);
         Aplicacao aplicacao = Aplicacao.getSoleInstance();
 
@@ -55,10 +59,39 @@ public class ForcaGame {
         palavraNomeFactory.getPalavra("brenda", temaNomes);
         palavraNomeFactory.getPalavra("mariana", temaNomes);
         palavraNomeFactory.getPalavra("yasmin", temaNomes);
+        
+        
+        while (opcao) {
+            System.out.println ("######## MENU ########");
+            System.out.println ("Seleciona a opção desejada: ");
+            System.out.println ("(1) Jogar ");
+            System.out.println ("(2) Criar Tema ");
+            System.out.println ("(3) Criar Palavra ");
+            System.out.println ("(4) Sair ");
+            String escolha = scanner.next();
+            
+            if (escolha.equalsIgnoreCase("4")) {
+                opcao = false;
+            } else if (escolha.equalsIgnoreCase("3")) {
+                System.out.println("Não implementado ainda");
+            } else if (escolha.equalsIgnoreCase("2")) {
+                System.out.println("Não implementado ainda");
+            } else if (escolha.equalsIgnoreCase("1")) {
+                System.out.println("Digite seu nome: ");
+                String nome = scanner.next();
+                Jogador jogador = jogadorFactory.getJogador(nome);
+                Rodada rodada = rodadaFactory.getRodada(jogador);
+                iniciarPartida(jogador, rodada);
+                opcao = false;
+            }
+        }
 
-        Jogador jogador = jogadorFactory.getJogador("Luan Soliño");
-        Rodada rodada = rodadaFactory.getRodada(jogador);
+        
+    }
 
+    private static void iniciarPartida(Jogador jogador, Rodada rodada) {
+        Scanner scanner = new Scanner(System.in);
+        
         while (!rodada.encerrou()) {
             System.out.println("Jogador: " + jogador.getNome());
             System.out.println("Tema: " + rodada.getTema().getNome());
@@ -106,5 +139,5 @@ public class ForcaGame {
 
         scanner.close();
     }
-    
+
 }
