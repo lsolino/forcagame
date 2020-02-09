@@ -82,13 +82,16 @@ public class MemoriaPalavraRepository implements PalavraRepository {
 
   @Override
   public void atualizar(Palavra palavra) throws RepositoryException {
-    // TODO Auto-generated method stub
-
+    this.remover(palavra);
+    this.inserir(palavra);
   }
 
   @Override
   public void remover(Palavra palavra) throws RepositoryException {
-    // TODO Auto-generated method stub
-
+    if (pool.contains(palavra)) {
+        pool.remove(palavra);
+    } else {
+        throw new RepositoryException("A palavra " + palavra + "não está presente no repositório");
+    }
   }
 }

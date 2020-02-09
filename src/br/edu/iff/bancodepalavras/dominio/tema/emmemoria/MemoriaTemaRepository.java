@@ -77,12 +77,17 @@ public class MemoriaTemaRepository implements TemaRepository {
 
   @Override
   public void atualizar(Tema tema) throws RepositoryException {
-    //TODO
+    this.remover(tema);
+    this.inserir(tema);
   }
 
   @Override
   public void remover(Tema tema) throws RepositoryException {
-    // TODO 
+    if (pool.contains(tema)) {
+        pool.remove(tema);
+    } else {
+        throw new RepositoryException("O tema " + tema + "não está presente no repositório");
+    }
   }
 
   

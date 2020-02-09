@@ -62,14 +62,17 @@ public class MemoriaJogadorRepository implements JogadorRepository {
 
   @Override
   public void atualizar(Jogador jogador) throws RepositoryException {
-    // TODO Auto-generated method stub
-
+    this.remover(jogador);
+    this.inserir(jogador);
   }
 
   @Override
   public void remover(Jogador jogador) throws RepositoryException {
-    // TODO Auto-generated method stub
-
+    if (pool.contains(jogador)) {
+        pool.remove(jogador);
+    } else {
+        throw new RepositoryException("O jogador " + jogador + "não está presente no repositório");
+    }
   }
 
   

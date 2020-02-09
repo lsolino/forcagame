@@ -67,14 +67,17 @@ public class MemoriaRodadaRepository implements RodadaRepository {
 
   @Override
   public void atualizar(Rodada rodada) throws RepositoryException {
-    // TODO Auto-generated method stub
-
+    this.remover(rodada);
+    this.inserir(rodada);
   }
 
   @Override
   public void remover(Rodada rodada) throws RepositoryException {
-    // TODO Auto-generated method stub
-
+    if (pool.contains(rodada)) {
+        pool.remove(rodada);
+    } else {
+        throw new RepositoryException("A rodada " + rodada + "não está presente no repositório");
+    }
   }
 
   
