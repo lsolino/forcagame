@@ -17,34 +17,27 @@ public class Item extends ObjetoDominioImpl {
     return new Item(id, palavra);
   }
 
-  public static Item recontituir(int id, Palavra palavra, List<Integer> posicoesDescobertas, String palavraArriscada) {
+  public static Item reconstituir(int id, Palavra palavra, List<Integer> posicoesDescobertas, String palavraArriscada) {
     return new Item(id, palavra, posicoesDescobertas, palavraArriscada);
   }
 
   private Item(int id, Palavra palavra) {
     super(Long.valueOf(id));
+    int i;
     this.palavra = palavra;
-    inicializaPosicoesDescobertas(palavra, null);
+    this.posicoesDescobertas = new ArrayList<>(palavra.getTamanho());
+    for (i = 0; i < palavra.getTamanho(); i++) {
+        this.posicoesDescobertas.add(false);
+    }
   }
 
   private Item(int id, Palavra palavra, List<Integer> posicoesDescobertas, String palavraArriscada) {
     super(Long.valueOf(id));
     this.palavra = palavra;
     this.palavraArriscada = palavraArriscada;
-    inicializaPosicoesDescobertas(palavra, posicoesDescobertas);
-  }
-
-  private void inicializaPosicoesDescobertas(Palavra palavra, List<Integer> posicoesDescobertas) {
     this.posicoesDescobertas = new ArrayList<>(palavra.getTamanho());
-
-    for (int i = 0; i < palavra.getTamanho(); i++) {
-      this.posicoesDescobertas.add(false);
-    }
-
-    if (posicoesDescobertas != null) {
-      for (Integer i: posicoesDescobertas) {
-        this.posicoesDescobertas.set(i, true);
-      }
+    for (Integer i: posicoesDescobertas) {
+        this.posicoesDescobertas.add(i, true);
     }
   }
 
@@ -83,23 +76,15 @@ public class Item extends ObjetoDominioImpl {
   public int calcularPontosLetrasEncobertas(int valorPorLetraEncoberta) {
     return qtdeLetrasEncobertas() * valorPorLetraEncoberta;
   }
-
-  public boolean arriscou() {
-    return palavraArriscada != null;
-  }
-
-  public boolean acertou() {
-    return arriscou() ? palavra.comparar(palavraArriscada) : false;
-  }
-
+  
   public boolean descobriu() {
     return acertou() || qtdeLetrasEncobertas() == 0;
   }
-
+  
   public void exibir(Object contexto) {
     palavra.exibir(contexto, posicoesDescobertas);
   }
-
+  
   boolean tentar(char codigo) {
     List<Integer> posicoes = palavra.tentar(codigo);
 
@@ -112,12 +97,21 @@ public class Item extends ObjetoDominioImpl {
 
     return true;
   }
-
+  
   void arriscar(String palavra) {
     this.palavraArriscada = palavra;
   }
-
+  
   public String getPalavraArriscada() {
     return this.palavraArriscada;
   }
+
+  public boolean arriscou() {
+    return palavraArriscada != null;
+  }
+
+  public boolean acertou() {
+    return arriscou() ? palavra.comparar(palavraArriscada) : false;
+  }
+  
 }
