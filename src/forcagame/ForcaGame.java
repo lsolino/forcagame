@@ -5,48 +5,101 @@
  */
 package forcagame;
 
+import br.edu.iff.bancodepalavras.dominio.letra.Letra;
+import br.edu.iff.bancodepalavras.dominio.palavra.PalavraFactory;
+import br.edu.iff.bancodepalavras.dominio.tema.Tema;
+import br.edu.iff.bancodepalavras.dominio.tema.TemaFactory;
+import br.edu.iff.jogoforca.Aplicacao;
+import br.edu.iff.jogoforca.dominio.jogador.Jogador;
+import br.edu.iff.jogoforca.dominio.jogador.JogadorFactory;
+import br.edu.iff.jogoforca.dominio.rodada.Rodada;
+import br.edu.iff.jogoforca.dominio.rodada.RodadaFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
  * @author dsn2
  */
 public class ForcaGame {
+    
+    public static void print(String message) {
+        System.out.print(message);
+    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Palavra.setLetraFactory(new LetraTextoFactory());
-        Rodada.setBonecoFactory(new BonecoTextoFactory());
+    public static void println(String message) {
+      System.out.println(message);
+    }
 
-        Jogador jogador = Jogador.criar(1, "Solino");
+    public static void println() {
+      System.out.println();
+    }
 
-        Tema tema = Tema.criar(1, "Futebol");
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        Aplicacao aplicacao = Aplicacao.getSoleInstance();
 
-        List<Palavra> palavras = new ArrayList<>();
-        palavras.add(Palavra.criar(1, "fla", tema));
-        palavras.add(Palavra.criar(2, "flu", tema));
-        palavras.add(Palavra.criar(3, "lau", tema));
+        JogadorFactory jogadorFactory = aplicacao.getJogadorFactory();
+        RodadaFactory rodadaFactory = aplicacao.getRodadaFactory();
+        TemaFactory temaFactory = aplicacao.getTemaFactory();
 
-        Rodada rodada = Rodada.criar(1, palavras, jogador);
-        rodada.exibirItens(null);
-        System.out.println();
-        rodada.tentar('a');
-        rodada.tentar('e');
-        rodada.tentar('g');
-        rodada.tentar('f');
-        rodada.tentar('l');
+        Tema tema = temaFactory.getTema("Times de Futebol");
 
-        rodada.exibirItens(null);
-        System.out.println();
+        PalavraFactory palavraFactory = aplicacao.getPalavraFactory();
+        palavraFactory.getPalavra("flamengo", tema);
+        palavraFactory.getPalavra("vasco", tema);
+        palavraFactory.getPalavra("fluminense", tema);
+
+        Jogador jogador = jogadorFactory.getJogador("Luan Soliño");
+        Rodada rodada = rodadaFactory.getRodada(jogador);
+
+        while (!rodada.encerrou()) {
+            System.out.println("Jogador: " + jogador.getNome());
+            System.out.println("Tema: " + rodada.getTema().getNome());
+            System.out.println("Erros: " + rodada.getQtdeErros() + "/" + Rodada.getMaxErros());
+            System.out.print("Tentativas: ");
+            for (Letra tentativa: rodada.getTentativas()) {
+                tentativa.exibir(null);
+                System.out.print(" ");
+            }
+            System.out.println();
+
+            rodada.exibirItens(null);
+            System.out.println();
+            rodada.exibirBoneco(null);
+            System.out.println();
+
+            System.out.print("Digite uma letra (Digite 1 para arriscar): ");
+            char codigo = scanner.next().charAt(0);
+
+            if (codigo == '1') {
+                List<String> palavras = new ArrayList<>();
+
+                System.out.println("Você decidiu arriscar...");
+                for (int i = 1; i <= rodada.getNumPalavras(); i++) {
+                  System.out.println("Qual a " + i + "ª palavra? ");
+                  String palavra = scanner.next();
+                  palavras.add(palavra);
+                }
+
+                rodada.arriscar(palavras);
+            } else {
+                rodada.tentar(codigo);
+            }
+            System.out.println("");
+        }
 
         if (rodada.descobriu()) {
-            System.out.print("Descobriu");
+            System.out.println("Parabéns, você descobriu todas as palavras!");
+            rodada.exibirPalavras(null);
         } else {
-            System.out.print("Não descobriu");
+            System.out.println("ERROU!! Você não descobriu as palavras.");
         }
+
+        System.out.println("Sua pontuação nessa rodada foi: " + rodada.calcularPontos());
+
+        scanner.close();
     }
     
 }
