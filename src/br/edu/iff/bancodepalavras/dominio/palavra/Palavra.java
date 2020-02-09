@@ -12,6 +12,8 @@ import br.edu.iff.dominio.ObjetoDominioImpl;
 public class Palavra extends ObjetoDominioImpl {
 
   private static LetraFactory letraFactory;
+  private List<Letra> palavra;
+  private Tema tema;
 
   public static void setLetraFactory(LetraFactory factory) {
     letraFactory = factory;
@@ -28,9 +30,6 @@ public class Palavra extends ObjetoDominioImpl {
   public static Palavra reconstituir(Long id, String palavra, Tema tema) {
     return new Palavra(id, palavra, tema);
   }
-
-  private List<Letra> palavra;
-  private Tema tema;
 
   private Palavra(Long id, String palavra, Tema tema) {
       super(id);
@@ -67,8 +66,8 @@ public class Palavra extends ObjetoDominioImpl {
       throw new RuntimeException("posicoes precisa ter o mesmo tamanho da palavra");
     }
 
-    LetraFactory factory = getLetraFactory();
-    Letra letraEncoberta = factory.getLetraEncoberta();
+    LetraFactory letraFactory = getLetraFactory();
+    Letra letraEncoberta = letraFactory.getLetraEncoberta();
 
     for (int i = 0; i < palavra.size(); i++) {
       if (posicoes.get(i)) {
