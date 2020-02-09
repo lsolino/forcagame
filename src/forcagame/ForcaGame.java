@@ -71,6 +71,8 @@ public class ForcaGame {
             String escolha = scanner.next();
             
             if (escolha.equalsIgnoreCase("4")) {
+                System.out.println("Obrigado por jogar!");
+                System.out.println("Grupo: Luan Soliño, Lucas Diniz e Matheus Melo");
                 opcao = false;
             } else if (escolha.equalsIgnoreCase("3")) {
                 System.out.println("Não implementado ainda");
