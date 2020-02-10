@@ -116,31 +116,42 @@ public class ForcaGame {
         while (!rodada.encerrou()) {
             System.out.println("Jogador: " + jogador.getNome());
             System.out.println("Tema: " + rodada.getTema().getNome());
-            System.out.println("Erros: " + rodada.getQtdeErros() + "/" + Rodada.getMaxErros());
+            
             System.out.print("Tentativas: ");
             for (Letra tentativa: rodada.getTentativas()) {
                 tentativa.exibir(null);
                 System.out.print(" ");
             }
             System.out.println();
-
+            
+            System.out.println("Palavras:");
             rodada.exibirItens(null);
             System.out.println();
+            System.out.println("Erros: " + rodada.getQtdeErros() + "/" + Rodada.getMaxErros());
+            System.out.println("Corpo: ");
             rodada.exibirBoneco(null);
             System.out.println();
 
-            System.out.print("Digite uma letra ou digite 1 se já souber todas as palavras: ");
-            
-            char codigo = scanner.next().charAt(0);
+            System.out.println("Selecione a opção desejada: ");
+            System.out.println("(1) Digitar uma letra");
+            System.out.println("(2) Já sabe todas as palavras? Arriscar");
 
-            if (codigo >= 'A' && codigo <= 'Z') {
-            	codigo = (char)(codigo+32);
-            } 
+            String escolha = scanner.next();
             
-            if (codigo == '1') {
+            if (escolha.equalsIgnoreCase("1")) {
+                System.out.print("Digite uma letra: ");
+                char codigo = scanner.next().charAt(0);
+
+                if (codigo >= 'A' && codigo <= 'Z') {
+                    codigo = (char)(codigo+32);
+                } 
+                
+                rodada.tentar(codigo); 
+
+                System.out.println("");
+            } else if (escolha.equalsIgnoreCase("2")) {
                 List<String> palavras = new ArrayList<>();
 
-                System.out.println("Você decidiu arriscar...");
                 for (int i = 1; i <= rodada.getNumPalavras(); i++) {
                     System.out.println("Qual a " + i + "ª palavra? ");
                     String palavra = scanner.next();
@@ -148,11 +159,10 @@ public class ForcaGame {
                 }
 
                 rodada.arriscar(palavras);
-            } else {
-                rodada.tentar(codigo);
-            }
+                System.out.println("");
+            } 
             
-            System.out.println("");
+            
         }
 
         if (rodada.descobriu()) {
