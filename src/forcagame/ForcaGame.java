@@ -9,6 +9,7 @@ import br.edu.iff.bancodepalavras.dominio.letra.Letra;
 import br.edu.iff.bancodepalavras.dominio.palavra.PalavraFactory;
 import br.edu.iff.bancodepalavras.dominio.tema.Tema;
 import br.edu.iff.bancodepalavras.dominio.tema.TemaFactory;
+import br.edu.iff.bancodepalavras.dominio.tema.TemaRepository;
 import br.edu.iff.bancodepalavras.dominio.tema.emmemoria.MemoriaTemaRepository;
 import br.edu.iff.jogoforca.Aplicacao;
 import br.edu.iff.jogoforca.dominio.jogador.Jogador;
@@ -20,24 +21,13 @@ import br.edu.iff.jogoforca.dominio.rodada.emmemoria.MemoriaRodadaRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author dsn2
  */
 public class ForcaGame {
-    
-    public static void print(String message) {
-        System.out.print(message);
-    }
-
-    public static void println(String message) {
-      System.out.println(message);
-    }
-
-    public static void println() {
-      System.out.println();
-    }
 
     public static void main(String[] args) throws Exception {
         boolean opcao = true;       
@@ -53,12 +43,42 @@ public class ForcaGame {
         palavraFutebolFactory.getPalavra("flamengo", temaFutebol);
         palavraFutebolFactory.getPalavra("vasco", temaFutebol);
         palavraFutebolFactory.getPalavra("fluminense", temaFutebol);
+        palavraFutebolFactory.getPalavra("botafogo", temaFutebol);
+        palavraFutebolFactory.getPalavra("goytacaz", temaFutebol);
+        
+        Tema temaFS = temaFactory.getTema("Filmes e Séries");
+        PalavraFactory palavraFSFactory = aplicacao.getPalavraFactory();
+        palavraFSFactory.getPalavra("atypical", temaFS);
+        palavraFSFactory.getPalavra("suits", temaFS);
+        palavraFSFactory.getPalavra("friends", temaFS);
+        palavraFSFactory.getPalavra("coringa", temaFS);
+        palavraFSFactory.getPalavra("frozen", temaFS);
         
         Tema temaNomes = temaFactory.getTema("Nomes Feminino");
         PalavraFactory palavraNomeFactory = aplicacao.getPalavraFactory();
         palavraNomeFactory.getPalavra("brenda", temaNomes);
         palavraNomeFactory.getPalavra("mariana", temaNomes);
         palavraNomeFactory.getPalavra("yasmin", temaNomes);
+        palavraNomeFactory.getPalavra("aurea", temaNomes);
+        palavraNomeFactory.getPalavra("jubileia", temaNomes);
+        
+        Tema temaGeral = temaFactory.getTema("Geral");
+        PalavraFactory palavraGeralFactory = aplicacao.getPalavraFactory();
+        palavraGeralFactory.getPalavra("flamengo", temaGeral);
+        palavraGeralFactory.getPalavra("vasco", temaGeral);
+        palavraGeralFactory.getPalavra("fluminense", temaGeral);
+        palavraGeralFactory.getPalavra("botafogo", temaGeral);
+        palavraGeralFactory.getPalavra("goytacaz", temaGeral);
+        palavraGeralFactory.getPalavra("brenda", temaGeral);
+        palavraGeralFactory.getPalavra("mariana", temaGeral);
+        palavraGeralFactory.getPalavra("yasmin", temaGeral);
+        palavraGeralFactory.getPalavra("aurea", temaGeral);
+        palavraGeralFactory.getPalavra("jubileia", temaGeral);
+        palavraGeralFactory.getPalavra("atypical", temaGeral);
+        palavraGeralFactory.getPalavra("suits", temaGeral);
+        palavraGeralFactory.getPalavra("friends", temaGeral);
+        palavraGeralFactory.getPalavra("coringa", temaGeral);
+        palavraGeralFactory.getPalavra("frozen", temaGeral);
         
         
         while (opcao) {
@@ -85,6 +105,9 @@ public class ForcaGame {
                 Rodada rodada = rodadaFactory.getRodada(jogador);
                 iniciarPartida(jogador, rodada);
                 opcao = false;
+            } else {
+                JOptionPane.showMessageDialog(null, "Opção Inválida!!! Saindo do jogo...");
+                throw new RuntimeException("Opção Inválida!!!");
             }
         }
 

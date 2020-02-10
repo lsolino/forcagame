@@ -48,9 +48,9 @@ public class RodadaSorteioFactory extends RodadaFactoryImpl {
         List<Palavra> palavrasSorteadas = new ArrayList();
         Palavra auxPalavra = null;
         
-        for (i=0; i<=maxPalavras; i++) {
+        while (palavrasSorteadas.size() != 3) {
             auxPalavra = todasPalavras.get(random.nextInt(todasPalavras.size()));
-            if (!palavrasSorteadas.contains(auxPalavra)) {
+            if (!palavrasSorteadas.contains(auxPalavra) && palavrasSorteadas.size() != 3) {
                 palavrasSorteadas.add(auxPalavra);
             }
         }
