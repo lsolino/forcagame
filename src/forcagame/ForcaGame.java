@@ -106,7 +106,9 @@ public class ForcaGame {
                 opcao = false;
             } else {
                 JOptionPane.showMessageDialog(null, "Opção Inválida!!! Saindo do jogo...");
-                throw new RuntimeException("Opção Inválida!!!");
+                System.out.println("Obrigado por jogar!");
+                System.out.println("Grupo: Luan Soliño, Lucas Diniz e Matheus Melo");
+                opcao = false;
             }
         }       
     }
