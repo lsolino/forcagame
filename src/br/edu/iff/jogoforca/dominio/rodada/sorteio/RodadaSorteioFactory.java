@@ -14,60 +14,58 @@ import br.edu.iff.jogoforca.dominio.rodada.Rodada;
 import br.edu.iff.jogoforca.dominio.rodada.RodadaFactoryImpl;
 import br.edu.iff.jogoforca.dominio.rodada.RodadaRepository;
 import br.edu.iff.repository.RepositoryException;
+import java.util.Collection;
+import java.util.Collections;
 
 public class RodadaSorteioFactory extends RodadaFactoryImpl {
 
-  private static RodadaSorteioFactory soleInstance = null;
+    private static RodadaSorteioFactory soleInstance = null;
 
-  public static void createSoleInstance(RodadaRepository repository, TemaRepository temaRepository, PalavraRepository palavraRepository) {
-    soleInstance = new RodadaSorteioFactory(repository, temaRepository, palavraRepository);
-  }
-
-  public static RodadaSorteioFactory getSoleInstance() {
-    if (soleInstance == null) {
-      throw new RuntimeException("A fábrica de sorteio da rodada não foi inicializada");
+    public static void createSoleInstance(RodadaRepository repository, TemaRepository temaRepository, PalavraRepository palavraRepository) {
+        soleInstance = new RodadaSorteioFactory(repository, temaRepository, palavraRepository);
     }
 
-    return soleInstance;
-  }
+    public static RodadaSorteioFactory getSoleInstance() {
+        if (soleInstance == null) {
+            throw new RuntimeException("A fábrica de sorteio da rodada não foi inicializada");
+        }
 
-  private RodadaSorteioFactory(RodadaRepository repository, TemaRepository temaRepository, PalavraRepository palavraRepository) {
-    super(repository, temaRepository, palavraRepository);
-  }
-
-  private <T extends ObjetoDominio> T pickRandom(List<T> pool) {
-    Random random = new Random();
-    return pool.get(random.nextInt(pool.size()));
-  }
-
-  private <T extends ObjetoDominio> List<T> pickMultiple(List<T> pool, int quantity) {
-    List<T> palavras = new ArrayList<>();
-
-    while (palavras.size() != quantity) {
-      T object = pickRandom(pool);
-      if (!palavras.contains(object)) {
-        palavras.add(object);
-      }
+        return soleInstance;
     }
 
-    return palavras;
-  }
-
-  @Override
-  public Rodada getRodada(Jogador jogador) {
-    Tema tema = pickRandom(getTemaRepository().getTodos());
-    List<Palavra> palavras = pickMultiple(getPalavraRepository().getPorTema(tema), Rodada.getMaxPalavras());
-
-    Rodada rodada = Rodada.criar(getProximoId(), palavras, jogador);
-
-    try{
-      getRodadaRepository().inserir(rodada);
-    } catch (RepositoryException repositoryException) {
-      throw new RuntimeException("Erro ao salvar rodada no repositório.");
+    private RodadaSorteioFactory(RodadaRepository repository, TemaRepository temaRepository, PalavraRepository palavraRepository) {
+        super(repository, temaRepository, palavraRepository);
     }
 
-    return rodada;
-  }
+    @Override
+    public Rodada getRodada(Jogador jogador) {
+        Random random = new Random();
+        List<Tema> todosTemas = getTemaRepository().getTodos();
+        Tema temaSorteado = todosTemas.get(random.nextInt(todosTemas.size()));
+        List<Palavra> todasPalavras = getPalavraRepository().getPorTema(temaSorteado);
+        int maxPalavras = Rodada.getMaxPalavras();
+        int i = 0;
+        List<Palavra> palavrasSorteadas = new ArrayList();
+        Palavra auxPalavra = null;
+        
+        for (i=0; i<=maxPalavras; i++) {
+            auxPalavra = todasPalavras.get(random.nextInt(todasPalavras.size()));
+            if (!palavrasSorteadas.contains(auxPalavra)) {
+                palavrasSorteadas.add(auxPalavra);
+            }
+        }
+
+        Rodada rodada = Rodada.criar(getProximoId(), palavrasSorteadas, jogador);
+        palavrasSorteadas.clear();
+
+        try{
+          getRodadaRepository().inserir(rodada);
+        } catch (RepositoryException repositoryException) {
+          throw new RuntimeException("Erro ao salvar rodada no repositório.");
+        }
+
+        return rodada;
+    }
 
   
 }
