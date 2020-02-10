@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
  * @author dsn2
  */
 public class ForcaGame {
-
+    
     public static void main(String[] args) throws Exception {
         boolean opcao = true;       
         Scanner scanner = new Scanner(System.in);
@@ -80,7 +80,6 @@ public class ForcaGame {
         palavraGeralFactory.getPalavra("coringa", temaGeral);
         palavraGeralFactory.getPalavra("frozen", temaGeral);
         
-        
         while (opcao) {
             System.out.println ("######## MENU ########");
             System.out.println ("Seleciona a opção desejada: ");
@@ -95,9 +94,9 @@ public class ForcaGame {
                 System.out.println("Grupo: Luan Soliño, Lucas Diniz e Matheus Melo");
                 opcao = false;
             } else if (escolha.equalsIgnoreCase("3")) {
-                System.out.println("Não implementado ainda");
+            	throw new RuntimeException("Função ainda não implementada!");
             } else if (escolha.equalsIgnoreCase("2")) {
-                System.out.println("Não implementado ainda");
+            	throw new RuntimeException("Função ainda não implementada!");
             } else if (escolha.equalsIgnoreCase("1")) {
                 System.out.println("Digite seu nome: ");
                 String nome = scanner.next();
@@ -109,9 +108,7 @@ public class ForcaGame {
                 JOptionPane.showMessageDialog(null, "Opção Inválida!!! Saindo do jogo...");
                 throw new RuntimeException("Opção Inválida!!!");
             }
-        }
-
-        
+        }       
     }
 
     private static void iniciarPartida(Jogador jogador, Rodada rodada) {
@@ -134,16 +131,21 @@ public class ForcaGame {
             System.out.println();
 
             System.out.print("Digite uma letra (Digite 1 para arriscar): ");
+            
             char codigo = scanner.next().charAt(0);
+
+            if (codigo >= 'A' && codigo <= 'Z') {
+            	codigo = (char)(codigo+32);
+            }
 
             if (codigo == '1') {
                 List<String> palavras = new ArrayList<>();
 
                 System.out.println("Você decidiu arriscar...");
                 for (int i = 1; i <= rodada.getNumPalavras(); i++) {
-                  System.out.println("Qual a " + i + "ª palavra? ");
-                  String palavra = scanner.next();
-                  palavras.add(palavra);
+                    System.out.println("Qual a " + i + "ª palavra? ");
+                    String palavra = scanner.next();
+                    palavras.add(palavra);
                 }
 
                 rodada.arriscar(palavras);
