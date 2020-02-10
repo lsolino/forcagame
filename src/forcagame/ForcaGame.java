@@ -136,9 +136,7 @@ public class ForcaGame {
 
             if (codigo >= 'A' && codigo <= 'Z') {
             	codigo = (char)(codigo+32);
-            }
-
-            if (codigo == '1') {
+            } else if (codigo == '1') {
                 List<String> palavras = new ArrayList<>();
 
                 System.out.println("Você decidiu arriscar...");
@@ -152,6 +150,7 @@ public class ForcaGame {
             } else {
                 rodada.tentar(codigo);
             }
+            
             System.out.println("");
         }
 
