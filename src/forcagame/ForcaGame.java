@@ -27,18 +27,6 @@ import java.util.Scanner;
  */
 public class ForcaGame {
     
-    public static void print(String message) {
-        System.out.print(message);
-    }
-
-    public static void println(String message) {
-      System.out.println(message);
-    }
-
-    public static void println() {
-      System.out.println();
-    }
-
     public static void main(String[] args) throws Exception {
         boolean opcao = true;       
         Scanner scanner = new Scanner(System.in);
@@ -60,7 +48,6 @@ public class ForcaGame {
         palavraNomeFactory.getPalavra("mariana", temaNomes);
         palavraNomeFactory.getPalavra("yasmin", temaNomes);
         
-        
         while (opcao) {
             System.out.println ("######## MENU ########");
             System.out.println ("Seleciona a opção desejada: ");
@@ -75,9 +62,9 @@ public class ForcaGame {
                 System.out.println("Grupo: Luan Soliño, Lucas Diniz e Matheus Melo");
                 opcao = false;
             } else if (escolha.equalsIgnoreCase("3")) {
-                System.out.println("Não implementado ainda");
+            	throw new RuntimeException("Função ainda não implementada!");
             } else if (escolha.equalsIgnoreCase("2")) {
-                System.out.println("Não implementado ainda");
+            	throw new RuntimeException("Função ainda não implementada!");
             } else if (escolha.equalsIgnoreCase("1")) {
                 System.out.println("Digite seu nome: ");
                 String nome = scanner.next();
@@ -86,9 +73,7 @@ public class ForcaGame {
                 iniciarPartida(jogador, rodada);
                 opcao = false;
             }
-        }
-
-        
+        }       
     }
 
     private static void iniciarPartida(Jogador jogador, Rodada rodada) {
@@ -111,7 +96,12 @@ public class ForcaGame {
             System.out.println();
 
             System.out.print("Digite uma letra (Digite 1 para arriscar): ");
+            
             char codigo = scanner.next().charAt(0);
+
+            if (codigo >= 'A' && codigo <= 'Z') {
+            	codigo = (char)(codigo+32);
+            }
 
             if (codigo == '1') {
                 List<String> palavras = new ArrayList<>();
