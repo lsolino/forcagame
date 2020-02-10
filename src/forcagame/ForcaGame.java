@@ -9,19 +9,14 @@ import br.edu.iff.bancodepalavras.dominio.letra.Letra;
 import br.edu.iff.bancodepalavras.dominio.palavra.PalavraFactory;
 import br.edu.iff.bancodepalavras.dominio.tema.Tema;
 import br.edu.iff.bancodepalavras.dominio.tema.TemaFactory;
-import br.edu.iff.bancodepalavras.dominio.tema.TemaRepository;
-import br.edu.iff.bancodepalavras.dominio.tema.emmemoria.MemoriaTemaRepository;
 import br.edu.iff.jogoforca.Aplicacao;
 import br.edu.iff.jogoforca.dominio.jogador.Jogador;
 import br.edu.iff.jogoforca.dominio.jogador.JogadorFactory;
 import br.edu.iff.jogoforca.dominio.rodada.Rodada;
 import br.edu.iff.jogoforca.dominio.rodada.RodadaFactory;
-import br.edu.iff.jogoforca.dominio.rodada.RodadaRepository;
-import br.edu.iff.jogoforca.dominio.rodada.emmemoria.MemoriaRodadaRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,6 +40,14 @@ public class ForcaGame {
         palavraFutebolFactory.getPalavra("fluminense", temaFutebol);
         palavraFutebolFactory.getPalavra("botafogo", temaFutebol);
         palavraFutebolFactory.getPalavra("goytacaz", temaFutebol);
+        
+        Tema temaZueira = temaFactory.getTema("Pessoas que falam merda");
+        PalavraFactory palavraZueiralFactory = aplicacao.getPalavraFactory();
+        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+        palavraZueiralFactory.getPalavra("matheusin", temaZueira);
         
         Tema temaFS = temaFactory.getTema("Filmes e Séries");
         PalavraFactory palavraFSFactory = aplicacao.getPalavraFactory();
@@ -84,19 +87,13 @@ public class ForcaGame {
             System.out.println ("######## MENU ########");
             System.out.println ("Seleciona a opção desejada: ");
             System.out.println ("(1) Jogar ");
-            System.out.println ("(2) Criar Tema ");
-            System.out.println ("(3) Criar Palavra ");
-            System.out.println ("(4) Sair ");
+            System.out.println ("(2) Sair ");
             String escolha = scanner.next();
             
-            if (escolha.equalsIgnoreCase("4")) {
+            if (escolha.equalsIgnoreCase("2")) {
                 System.out.println("Obrigado por jogar!");
                 System.out.println("Grupo: Luan Soliño, Lucas Diniz e Matheus Melo");
                 opcao = false;
-            } else if (escolha.equalsIgnoreCase("3")) {
-            	throw new RuntimeException("Função ainda não implementada!");
-            } else if (escolha.equalsIgnoreCase("2")) {
-            	throw new RuntimeException("Função ainda não implementada!");
             } else if (escolha.equalsIgnoreCase("1")) {
                 System.out.println("Digite seu nome: ");
                 String nome = scanner.next();
@@ -105,8 +102,8 @@ public class ForcaGame {
                 iniciarPartida(jogador, rodada);
                 opcao = false;
             } else {
-                JOptionPane.showMessageDialog(null, "Opção Inválida!!! Saindo do jogo...");
-                System.out.println("Obrigado por jogar!");
+                System.out.println("Opção Inválida!!! Saindo do jogo...");
+                System.out.println("Volte sempre!");
                 System.out.println("Grupo: Luan Soliño, Lucas Diniz e Matheus Melo");
                 opcao = false;
             }
@@ -132,7 +129,7 @@ public class ForcaGame {
             rodada.exibirBoneco(null);
             System.out.println();
 
-            System.out.print("Digite uma letra (Digite 1 para arriscar): ");
+            System.out.print("Digite uma letra ou digite 1 se já souber todas as palavras: ");
             
             char codigo = scanner.next().charAt(0);
 
