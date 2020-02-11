@@ -9,6 +9,7 @@ import br.edu.iff.bancodepalavras.dominio.letra.Letra;
 import br.edu.iff.bancodepalavras.dominio.palavra.PalavraFactory;
 import br.edu.iff.bancodepalavras.dominio.tema.Tema;
 import br.edu.iff.bancodepalavras.dominio.tema.TemaFactory;
+import br.edu.iff.bancodepalavras.dominio.tema.TemaRepository;
 import br.edu.iff.jogoforca.Aplicacao;
 import br.edu.iff.jogoforca.dominio.jogador.Jogador;
 import br.edu.iff.jogoforca.dominio.jogador.JogadorFactory;
@@ -41,13 +42,13 @@ public class ForcaGame {
         palavraFutebolFactory.getPalavra("botafogo", temaFutebol);
         palavraFutebolFactory.getPalavra("goytacaz", temaFutebol);
         
-//        Tema temaZueira = temaFactory.getTema("Pessoas que falam merda");
-//        PalavraFactory palavraZueiralFactory = aplicacao.getPalavraFactory();
-//        palavraZueiralFactory.getPalavra("amanda", temaZueira);
-//        palavraZueiralFactory.getPalavra("amanda", temaZueira);
-//        palavraZueiralFactory.getPalavra("amanda", temaZueira);
-//        palavraZueiralFactory.getPalavra("amanda", temaZueira);
-//        palavraZueiralFactory.getPalavra("matheusin", temaZueira);
+////        Tema temaZueira = temaFactory.getTema("Pessoas que falam merda");
+////        PalavraFactory palavraZueiralFactory = aplicacao.getPalavraFactory();
+////        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+////        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+////        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+////        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+////        palavraZueiralFactory.getPalavra("matheusin", temaZueira);
         
         Tema temaFS = temaFactory.getTema("Filmes e Séries");
         PalavraFactory palavraFSFactory = aplicacao.getPalavraFactory();
@@ -82,18 +83,31 @@ public class ForcaGame {
         palavraGeralFactory.getPalavra("friends", temaGeral);
         palavraGeralFactory.getPalavra("coringa", temaGeral);
         palavraGeralFactory.getPalavra("frozen", temaGeral);
-        
+
+        PalavraFactory palavraUsuarioFactory = aplicacao.getPalavraFactory();
+               
         while (opcao) {
             System.out.println ("######## MENU ########");
             System.out.println ("Seleciona a opção desejada: ");
             System.out.println ("(1) Jogar ");
-            System.out.println ("(2) Sair ");
+            System.out.println ("(2) Criar palavra para o tema GERAL ");
+            System.out.println ("(*) Sair ");
             String escolha = scanner.next();
             
             if (escolha.equalsIgnoreCase("2")) {
-                System.out.println("Obrigado por jogar!");
-                System.out.println("Grupo: Luan Soliño, Lucas Diniz e Matheus Melo");
-                opcao = false;
+                System.out.println("Digite a palavra para o tema 'GERAL': ");
+                String palavra = scanner.next();
+                System.out.println("Escolha um dos temas abaixo: ");
+                TemaRepository temaRepo = aplicacao.getRepositoryFactory().getTemaRepository();
+                int i = 1;
+                List<Tema> todosTemas = temaRepo.getTodos();
+                for (Tema teminha: todosTemas) {
+                    System.out.println("( " + i + ")" + teminha.getNome());
+                    i += 1;
+                }
+                String temaDigitado = scanner.next();
+                Tema temaEscolhido = temaRepo.getPorId(Long.parseLong(temaDigitado));
+                palavraUsuarioFactory.getPalavra(palavra, temaEscolhido);
             } else if (escolha.equalsIgnoreCase("1")) {
                 System.out.println("Digite seu nome: ");
                 String nome = scanner.next();
