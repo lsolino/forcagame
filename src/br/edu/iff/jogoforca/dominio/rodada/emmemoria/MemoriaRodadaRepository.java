@@ -28,7 +28,7 @@ public class MemoriaRodadaRepository implements RodadaRepository {
   @Override
   public long getProximoId() {
     // TODO Auto-generated method stub
-    return 0;
+    return pool.size() + 1;
   }
 
   @Override

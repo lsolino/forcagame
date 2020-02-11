@@ -13,8 +13,10 @@ import br.edu.iff.bancodepalavras.dominio.tema.TemaRepository;
 import br.edu.iff.jogoforca.Aplicacao;
 import br.edu.iff.jogoforca.dominio.jogador.Jogador;
 import br.edu.iff.jogoforca.dominio.jogador.JogadorFactory;
+import br.edu.iff.jogoforca.dominio.jogador.JogadorRepository;
 import br.edu.iff.jogoforca.dominio.rodada.Rodada;
 import br.edu.iff.jogoforca.dominio.rodada.RodadaFactory;
+import br.edu.iff.jogoforca.dominio.rodada.RodadaRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -117,10 +119,11 @@ public class ForcaGame {
             System.out.println ("Seleciona a opção desejada: ");
             System.out.println ("(1) Jogar ");
             System.out.println ("(2) Criar palavra para um tema já existente ");
+            //System.out.println ("(3) Recordes por Jogador ");
             System.out.println ("(*) Sair ");
             String escolha = scanner.next();
             
-            if (escolha.equalsIgnoreCase("2")) {
+        if (escolha.equalsIgnoreCase("2")) {
                 System.out.println("Digite a palavra que deseja adicionar: ");
                 String palavra = scanner.next();
                 System.out.println("Escolha um dos temas abaixo: ");
@@ -140,14 +143,14 @@ public class ForcaGame {
                 Jogador jogador = jogadorFactory.getJogador(nome);
                 Rodada rodada = rodadaFactory.getRodada(jogador);
                 iniciarPartida(jogador, rodada);
-                opcao = false;
             } else {
-                System.out.println("Opção Inválida!!! Saindo do jogo...");
+                System.out.println("Obrigado por jogar!... Saindo do jogo...");
                 System.out.println("Volte sempre!");
                 System.out.println("Grupo: Luan Soliño, Lucas Diniz e Matheus Melo");
                 opcao = false;
             }
-        }       
+        }
+        scanner.close();
     }
 
     private static void iniciarPartida(Jogador jogador, Rodada rodada) {
@@ -213,8 +216,9 @@ public class ForcaGame {
         }
 
         System.out.println("Sua pontuação nessa rodada foi: " + rodada.calcularPontos());
-
-        scanner.close();
+        
+        
+        
     }
 
 }
