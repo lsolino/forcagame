@@ -176,15 +176,7 @@ public class Rodada extends ObjetoDominioImpl {
       return;
     }
     
-    int aux = 0;
-    
-    if (palavras.size() < itens.size()) {
-        aux = palavras.size();
-    } else {
-        aux = itens.size();
-    }
-
-    for (int i = 0; i < aux; i++) {
+    for (int i = 0; i < palavras.size(); i++) {
       itens.get(i).arriscar(palavras.get(i));
     }
 

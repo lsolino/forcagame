@@ -42,23 +42,27 @@ public class Aplicacao {
     }
 
     public void setup() {
-        if (tipoRepositoryFactory.equals(TIPOS_REPOSITORY_FACTORY[0])) {
+        // Retorna Tipo de Repositório
+        if (tipoRepositoryFactory.equalsIgnoreCase(TIPOS_REPOSITORY_FACTORY[0])) {
             repositoryFactory = MemoriaRepositoryFactory.getSoleInstance();
-        } else if (tipoRepositoryFactory.equals(TIPOS_REPOSITORY_FACTORY[1])) {
+        } else if (tipoRepositoryFactory.equalsIgnoreCase(TIPOS_REPOSITORY_FACTORY[1])) {
             repositoryFactory = BDRRepositoryFactory.getSoleInstance();
         } 
-
-        if (tipoElementoGraficoFactory.equals(TIPOS_ELEMENTO_GRAFICO_FACTORY[0])) {
+        
+        // Retorna Tipo de Elemento Gráfico
+        if (tipoElementoGraficoFactory.equalsIgnoreCase(TIPOS_ELEMENTO_GRAFICO_FACTORY[0])) {
             elementoGraficoFactory = ElementoGraficoTextoFactory.getSoleInstance();
-        } else if (tipoElementoGraficoFactory.equals(TIPOS_ELEMENTO_GRAFICO_FACTORY[1])) {
+        } else if (tipoElementoGraficoFactory.equalsIgnoreCase(TIPOS_ELEMENTO_GRAFICO_FACTORY[1])) {
             elementoGraficoFactory = ElementoGraficoImagemFactory.getSoleInstance();
         }
-
-        if (tipoRodadaFactory.equals(TIPOS_RODADA_FACTORY[0])) {
+        
+        // Retorna Tipo de Rodada Factory
+        if (tipoRodadaFactory.equalsIgnoreCase(TIPOS_RODADA_FACTORY[0])) {
             RodadaSorteioFactory.createSoleInstance(repositoryFactory.getRodadaRepository(), repositoryFactory.getTemaRepository(), repositoryFactory.getPalavraRepository());
             rodadaFactory = RodadaSorteioFactory.getSoleInstance();
         }
 
+        // Seta os factories e os elementos gráficos
         TemaFactoryImpl.createSoleInstance(repositoryFactory.getTemaRepository());
         PalavraFactoryImpl.createSoleInstance(repositoryFactory.getPalavraRepository());
         JogadorFactoryImpl.createSoleInstance(repositoryFactory.getJogadorRepository());
