@@ -36,6 +36,36 @@ public class RodadaSorteioFactory extends RodadaFactoryImpl {
     private RodadaSorteioFactory(RodadaRepository repository, TemaRepository temaRepository, PalavraRepository palavraRepository) {
         super(repository, temaRepository, palavraRepository);
     }
+    
+//    @Override
+//    public Rodada getRodada(Jogador jogador) {
+//        Random random = new Random();
+//        List<Tema> todosTemas = getTemaRepository().getTodos();
+//        Tema temaSorteado = todosTemas.get(random.nextInt(todosTemas.size()));
+//        List<Palavra> todasPalavras = getPalavraRepository().getPorTema(temaSorteado);
+//        int maxPalavras = Rodada.getMaxPalavras();
+//        int i = 0;
+//        List<Palavra> palavrasSorteadas = new ArrayList();
+//        Palavra auxPalavra = null;
+//        
+//        while (palavrasSorteadas.size() != 3) {
+//            auxPalavra = todasPalavras.get(random.nextInt(todasPalavras.size()));
+//            if (!palavrasSorteadas.contains(auxPalavra) && palavrasSorteadas.size() != 3) {
+//                palavrasSorteadas.add(auxPalavra);
+//            }
+//        }
+//
+//        Rodada rodada = Rodada.criar(getProximoId(), palavrasSorteadas, jogador);
+//        palavrasSorteadas.clear();
+//
+//        try{
+//          getRodadaRepository().inserir(rodada);
+//        } catch (RepositoryException repositoryException) {
+//          throw new RuntimeException("Erro ao salvar rodada no repositório.");
+//        }
+//
+//        return rodada;
+//    }
 
     @Override
     public Rodada getRodada(Jogador jogador) {

@@ -85,17 +85,43 @@ public class ForcaGame {
         palavraGeralFactory.getPalavra("frozen", temaGeral);
 
         PalavraFactory palavraUsuarioFactory = aplicacao.getPalavraFactory();
+        
+//        while (opcao) {
+//            System.out.println ("######## MENU ########");
+//            System.out.println ("Seleciona a opção desejada: ");
+//            System.out.println ("(1) Jogar ");
+//            System.out.println ("(2) Sair ");
+//            String escolha = scanner.next();
+//            
+//            if (escolha.equalsIgnoreCase("2")) {
+//                System.out.println("Obrigado por jogar!");
+//                System.out.println("Grupo: Luan Soliño, Lucas Diniz e Matheus Melo");
+//                opcao = false;
+//            } else if (escolha.equalsIgnoreCase("1")) {
+//                System.out.println("Digite seu nome: ");
+//                String nome = scanner.next();
+//                Jogador jogador = jogadorFactory.getJogador(nome);
+//                Rodada rodada = rodadaFactory.getRodada(jogador);
+//                iniciarPartida(jogador, rodada);
+//                opcao = false;
+//            } else {
+//                System.out.println("Opção Inválida!!! Saindo do jogo...");
+//                System.out.println("Volte sempre!");
+//                System.out.println("Grupo: Luan Soliño, Lucas Diniz e Matheus Melo");
+//                opcao = false;
+//            }
+//        }
                
         while (opcao) {
             System.out.println ("######## MENU ########");
             System.out.println ("Seleciona a opção desejada: ");
             System.out.println ("(1) Jogar ");
-            System.out.println ("(2) Criar palavra para o tema GERAL ");
+            System.out.println ("(2) Criar palavra para um tema já existente ");
             System.out.println ("(*) Sair ");
             String escolha = scanner.next();
             
             if (escolha.equalsIgnoreCase("2")) {
-                System.out.println("Digite a palavra para o tema 'GERAL': ");
+                System.out.println("Digite a palavra que deseja adicionar: ");
                 String palavra = scanner.next();
                 System.out.println("Escolha um dos temas abaixo: ");
                 TemaRepository temaRepo = aplicacao.getRepositoryFactory().getTemaRepository();
