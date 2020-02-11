@@ -41,13 +41,13 @@ public class ForcaGame {
         palavraFutebolFactory.getPalavra("botafogo", temaFutebol);
         palavraFutebolFactory.getPalavra("goytacaz", temaFutebol);
         
-        Tema temaZueira = temaFactory.getTema("Pessoas que falam merda");
-        PalavraFactory palavraZueiralFactory = aplicacao.getPalavraFactory();
-        palavraZueiralFactory.getPalavra("amanda", temaZueira);
-        palavraZueiralFactory.getPalavra("amanda", temaZueira);
-        palavraZueiralFactory.getPalavra("amanda", temaZueira);
-        palavraZueiralFactory.getPalavra("amanda", temaZueira);
-        palavraZueiralFactory.getPalavra("matheusin", temaZueira);
+//        Tema temaZueira = temaFactory.getTema("Pessoas que falam merda");
+//        PalavraFactory palavraZueiralFactory = aplicacao.getPalavraFactory();
+//        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+//        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+//        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+//        palavraZueiralFactory.getPalavra("amanda", temaZueira);
+//        palavraZueiralFactory.getPalavra("matheusin", temaZueira);
         
         Tema temaFS = temaFactory.getTema("Filmes e Séries");
         PalavraFactory palavraFSFactory = aplicacao.getPalavraFactory();
