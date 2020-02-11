@@ -7,7 +7,7 @@ import br.edu.iff.repository.RepositoryException;
 
 public class RodadaAppService {
   
-    private static RodadaAppService soleInstance;
+    private static RodadaAppService soleInstance = null;
 
     private RodadaRepository rodadaRepository;
     private RodadaFactory rodadaFactory;
@@ -30,13 +30,13 @@ public class RodadaAppService {
         return soleInstance;
     }
 
-    public Rodada novaRodadaPorId(String idJogador) throws JogadorNaoEncontradoException {
+    public Rodada novaRodada(String idJogador) throws JogadorNaoEncontradoException {
 
         Long id = Long.parseLong(idJogador);
 
         try {
-            Jogador retorno = jogadorRepository.getPorId(id);
-            return rodadaFactory.getRodada(retorno);
+            Jogador jogador = jogadorRepository.getPorId(id);
+            return rodadaFactory.getRodada(jogador);
         } catch (Exception e) {
             System.out.print(e.getMessage());
         }
@@ -44,11 +44,11 @@ public class RodadaAppService {
         throw new JogadorNaoEncontradoException("Não foi possível encontrar o jogador" );
     }
 
-    public Rodada novaRodadaPorNome(String nomeJogador) throws JogadorNaoEncontradoException{
+    public Rodada novaRodadaPorNome(String nomeJogador) throws JogadorNaoEncontradoException {
 
         try {
-            Jogador retorno = jogadorRepository.getPorNome(nomeJogador);
-            return rodadaFactory.getRodada(retorno);
+            Jogador jogador = jogadorRepository.getPorNome(nomeJogador);
+            return rodadaFactory.getRodada(jogador);
         } catch (Exception e) {
             System.out.print(e.getMessage());
         }
@@ -63,14 +63,16 @@ public class RodadaAppService {
             System.out.print(e.getMessage());
         }
 
-        return null;
+        return rodadaFactory.getRodada(jogador);
     }
 
-    public void salvarRodada(Rodada rodada) throws RepositoryException{
+    public boolean salvarRodada(Rodada rodada) throws RepositoryException{
         try {
             rodadaRepository.inserir(rodada);
-        } catch (Exception e) {
-            System.out.print(e.getMessage());
+            return true;
+        } catch (RepositoryException re) {
+            System.out.print(re.getMessage());
+            return false;
         }
     }
 }

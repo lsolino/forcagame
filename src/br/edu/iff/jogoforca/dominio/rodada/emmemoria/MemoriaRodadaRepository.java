@@ -11,6 +11,7 @@ import br.edu.iff.repository.RepositoryException;
 public class MemoriaRodadaRepository implements RodadaRepository {
 
   private static MemoriaRodadaRepository soleInstance = null;
+  private List<Rodada> pool;
 
   public static MemoriaRodadaRepository getSoleInstance() {
     if (soleInstance == null) {
@@ -19,8 +20,6 @@ public class MemoriaRodadaRepository implements RodadaRepository {
 
     return soleInstance;
   }
-
-  private List<Rodada> pool;
 
   private MemoriaRodadaRepository() {
     pool = new ArrayList<>();

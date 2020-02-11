@@ -11,6 +11,7 @@ import br.edu.iff.repository.RepositoryException;
 public class MemoriaTemaRepository implements TemaRepository {
 
   private static MemoriaTemaRepository soleInstance = null;
+  private List<Tema> pool;
 
   public static MemoriaTemaRepository getSoleInstance() {
       if (soleInstance == null) {
@@ -19,8 +20,6 @@ public class MemoriaTemaRepository implements TemaRepository {
 
       return soleInstance;
   }
-
-  private List<Tema> pool;
 
   private MemoriaTemaRepository() {
     pool = new ArrayList<>();

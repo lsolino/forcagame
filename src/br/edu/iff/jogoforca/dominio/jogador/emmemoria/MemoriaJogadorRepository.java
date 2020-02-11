@@ -10,6 +10,7 @@ import br.edu.iff.repository.RepositoryException;
 public class MemoriaJogadorRepository implements JogadorRepository {
 
   private static MemoriaJogadorRepository soleInstance = null;
+  private List<Jogador> pool;
 
   public static MemoriaJogadorRepository getSoleInstance() {
     if (soleInstance == null) {
@@ -18,8 +19,6 @@ public class MemoriaJogadorRepository implements JogadorRepository {
       
     return soleInstance;
   }
-
-  private List<Jogador> pool;
 
   private MemoriaJogadorRepository() {
     pool = new ArrayList<>();

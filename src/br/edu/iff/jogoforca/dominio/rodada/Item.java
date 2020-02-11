@@ -13,16 +13,16 @@ public class Item extends ObjetoDominioImpl {
   private String palavraArriscada = null;
   private Palavra palavra;
 
-  static Item criar(int id, Palavra palavra) {
-    return new Item(id, palavra);
+  static Item criar(int discriminador, Palavra palavra) {
+    return new Item(discriminador, palavra);
   }
 
-  public static Item reconstituir(int id, Palavra palavra, List<Integer> posicoesDescobertas, String palavraArriscada) {
-    return new Item(id, palavra, posicoesDescobertas, palavraArriscada);
+  public static Item reconstituir(int discriminador, Palavra palavra, List<Integer> posicoesDescobertas, String palavraArriscada) {
+    return new Item(discriminador, palavra, posicoesDescobertas, palavraArriscada);
   }
 
-  private Item(int id, Palavra palavra) {
-    super(Long.valueOf(id));
+  private Item(int discriminador, Palavra palavra) {
+    super(Long.valueOf(discriminador));
     int i;
     this.palavra = palavra;
     this.posicoesDescobertas = new ArrayList<>(palavra.getTamanho());
@@ -31,8 +31,8 @@ public class Item extends ObjetoDominioImpl {
     }
   }
 
-  private Item(int id, Palavra palavra, List<Integer> posicoesDescobertas, String palavraArriscada) {
-    super(Long.valueOf(id));
+  private Item(int discriminador, Palavra palavra, List<Integer> posicoesDescobertas, String palavraArriscada) {
+    super(Long.valueOf(discriminador));
     this.palavra = palavra;
     this.palavraArriscada = palavraArriscada;
     this.posicoesDescobertas = new ArrayList<>(palavra.getTamanho());

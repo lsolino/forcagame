@@ -12,6 +12,7 @@ import br.edu.iff.repository.RepositoryException;
 public class MemoriaPalavraRepository implements PalavraRepository {
 
   private static MemoriaPalavraRepository soleInstance = null;
+  private List<Palavra> pool;
 
   public static MemoriaPalavraRepository getSoleInstance() {
     if (soleInstance == null) {
@@ -20,8 +21,6 @@ public class MemoriaPalavraRepository implements PalavraRepository {
 
     return soleInstance;
   }
-
-  private List<Palavra> pool;
 
   private MemoriaPalavraRepository() {
     pool = new ArrayList<>();
